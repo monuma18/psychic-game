@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang=>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Psychic Game</title>
+
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">" -->
+<!-- <link rel="stylesheet" href="./Assets/css/reset.css"> -->
+<link rel="stylesheet" type="text/css" href="./Assets/css/styles.css">
+
+</head >
+
+<body>
+
+    <div id="game">
+        <h1> The Psychic Game </h1>
+        <p>Guess what letter I'm thinking of!</p>
+        <div id="Message"></div>
+        <p id="wins">Wins:</p>
+        <p id="losses">Losses:</p>
+        <p id="guesses">Guesses Left:</p>
+        <p id ="previous">Your Guesses so far:</p>
+    </div>
+
+    <script type="text/javascript">
+
+        var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+        var wins = 0;
+        var losses = 0;
+        var numGuesses = 3;
+        var guessChoices = [];
+        var computerGuess = "";
+        function computermakeGuess() {
+            computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+            console.log(computerGuess);
+        }
+        computermakeGuess();
+        
+        document.onkeyup = function (event) {
+
+            var userGuess = event.key;
+            console.log(userGuess);
+
+
+
+            var options = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
+
+
+            if (options.indexOf(userGuess) > -1) {
+
+                if (userGuess === computerGuess) {
+                    wins++;
+                    numGuesses = 3;
+                    document.querySelector ("#Message").innerHTML ="You win . I was thinking of a letter "+computerGuess;
+                    guessChoices = [];
+                    computermakeGuess();
+                } else if (userGuess != computerGuess) {
+                    numGuesses--;
+                    guessChoices.push(userGuess);
+                }
+
+                if (numGuesses === 0) {
+
+                    numGuesses = 3;
+                    losses++;
+                    guessChoices = [];
+                    document.querySelector ("#Message").innerHTML ="You lose. I was thinking of a letter "+computerGuess;
+                    computermakeGuess();
+                    
+
+
+                }
+
+                
+
+                // document.querySelector("#game").innerHTML = html;
+                document.querySelector ("#wins").innerHTML ="wins: "+wins;
+                document.querySelector ("#losses").innerHTML ="losses: "+losses;
+                document.querySelector ("#guesses").innerHTML ="guesses: "+numGuesses;
+                document.querySelector ("#previous").innerHTML ="Your Guesses so far: "+guessChoices;
+            }
+        };
+    </script>
+    <footer>
+        Copyright &copy; Stack Overflow 200
+    </footer>
+</body>
+
+</html>
